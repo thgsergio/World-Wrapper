@@ -11,9 +11,9 @@ cd ~/git
 git clone https://github.com/thgsergio/World-Wrapper.git
 ```
 
-2. Copy the package into your own ROS2 workspace
+2. Create a symlink of the package into your own ROS2 workspace
 ```bash
-cp -r ~/git/World-Wrapper/world_wrapper ~/your_ws/src
+ln -s ~/git/World-Wrapper/world_wrapper ~/your_ws/src
 ```
 
 3. Compile your workspace
@@ -22,7 +22,12 @@ cd ~/your_ws
 colcon build --packages-select world_wrapper
 ```
 
-4. Run the launch file
+4. Source your workspace
+```bash
+source ~/your_ws/install/setup.bash
+```
+
+5. Run the launch file
 ```bash
 ros2 launch world_wrapper wrapper.launch.py world_package:=your_pkg world_name:=your_world real_time:=1.0 
 ```
