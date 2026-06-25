@@ -7,17 +7,17 @@ from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
     world_package = LaunchConfiguration('world_package')
-    world_file = LaunchConfiguration('world_file')
+    world_name = LaunchConfiguration('world_name')
     real_time = LaunchConfiguration('real_time')
 
     pkg_share = FindPackageShare(world_package)
 
-    world_path = PathJoinSubstitution([pkg_share, 'worlds', world_file])
+    world_path = PathJoinSubstitution([pkg_share, 'worlds', world_name])
     models_path = PathJoinSubstitution([pkg_share, 'models'])
 
     return LaunchDescription([
         DeclareLaunchArgument('world_package', default_value='laser_gazebo_resources'),
-        DeclareLaunchArgument('world_file', default_value='custom_empty'),
+        DeclareLaunchArgument('world_name', default_value='custom_empty'),
         DeclareLaunchArgument('real_time', default_value='1.0'),
 
         SetEnvironmentVariable(
@@ -35,7 +35,7 @@ def generate_launch_description():
             ]),
             launch_arguments={
                 'world': world_path,
-                'real_time': LaunchConfiguration('real_time')
+                'real_time': real_time
             }.items()
         ),
     ])
